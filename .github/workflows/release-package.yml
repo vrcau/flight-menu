@@ -20,10 +20,9 @@ on:
         description: package to make
         required: true
         options:
-          - xyz.misakal.vpm.vcm-connect
-          - xyz.misakal.vpm.vcm-connect.avatars
-          - xyz.misakal.vpm.vcm-connect.worlds
-          - xyz.misakal.vpm.vcm-connect.avatars.continuous-avatar-uploader-ext
+          - org.vrcau.vpm.systems.flight-menu
+          - org.vrcau.vpm.systems.flight-menu.integration.sacc-flight-dfunc
+          - org.vrcau.vpm.systems.flight-menu.integration.urc-redux
 
 env:
   releasing_branch: releasing
@@ -54,17 +53,14 @@ jobs:
         id: get-package-short-name
         run: |
           case $PACKAGE_NAME in
-            "xyz.misakal.vpm.vcm-connect")
-              short_name="base"
+            "org.vrcau.vpm.systems.flight-menu")
+              short_name="core"
               ;;
-            "xyz.misakal.vpm.vcm-connect.avatars")
-              short_name="avatars"
+            "org.vrcau.vpm.systems.flight-menu.integration.sacc-flight-dfunc")
+              short_name="integration-sacc-flight-dfunc"
               ;;
-            "xyz.misakal.vpm.vcm-connect.worlds")
-              short_name="worlds"
-              ;;
-            "xyz.misakal.vpm.vcm-connect.avatars.continuous-avatar-uploader-ext")
-              short_name="cau-ext"
+            "org.vrcau.vpm.systems.flight-menu.integration.urc-redux")
+              short_name="integration-urc-redux"
               ;;
             *)
               echo "Unknown package: $PACKAGE_NAME"
@@ -86,17 +82,14 @@ jobs:
       - name: Get Path to Changes Log
         run: |
           case $PACKAGE_NAME in
-            "xyz.misakal.vpm.vcm-connect")
-              change_log_name="CHANGELOG-base.md"
+            "org.vrcau.vpm.systems.flight-menu")
+              change_log_name="CHANGELOG.md"
               ;;
-            "xyz.misakal.vpm.vcm-connect.avatars")
-              change_log_name="CHANGELOG-avatars.md"
+            "org.vrcau.vpm.systems.flight-menu.integration.sacc-flight-dfunc")
+              change_log_name="CHANGELOG-integration-sacc-flight-dfunc.md"
               ;;
-            "xyz.misakal.vpm.vcm-connect.worlds")
-              change_log_name="CHANGELOG-worlds.md"
-              ;;
-            "xyz.misakal.vpm.vcm-connect.avatars.continuous-avatar-uploader-ext")
-              change_log_name="CHANGELOG-cau-ext.md"
+            "org.vrcau.vpm.systems.flight-menu.integration.urc-redux")
+              change_log_name="CHANGELOG-integration-urc-redux.md"
               ;;
             *)
               echo "Unknown package: $PACKAGE_NAME"
@@ -198,17 +191,14 @@ jobs:
         id: get-package-short-name
         run: |
           case $PACKAGE_NAME in
-            "xyz.misakal.vpm.vcm-connect")
-              short_name="base"
+            "org.vrcau.vpm.systems.flight-menu")
+              short_name="core"
               ;;
-            "xyz.misakal.vpm.vcm-connect.avatars")
-              short_name="avatars"
+            "org.vrcau.vpm.systems.flight-menu.integration.sacc-flight-dfunc")
+              short_name="integration-sacc-flight-dfunc"
               ;;
-            "xyz.misakal.vpm.vcm-connect.worlds")
-              short_name="worlds"
-              ;;
-            "xyz.misakal.vpm.vcm-connect.avatars.continuous-avatar-uploader-ext")
-              short_name="cau-ext"
+            "org.vrcau.vpm.systems.flight-menu.integration.urc-redux")
+              short_name="integration-urc-redux"
               ;;
             *)
               echo "Unknown package: $PACKAGE_NAME"

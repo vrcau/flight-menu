@@ -26,10 +26,9 @@ on:
         description: package to make
         required: true
         options:
-          - xyz.misakal.vpm.vcm-connect
-          - xyz.misakal.vpm.vcm-connect.avatars
-          - xyz.misakal.vpm.vcm-connect.worlds
-          - xyz.misakal.vpm.vcm-connect.avatars.continuous-avatar-uploader-ext
+          - org.vrcau.vpm.systems.flight-menu
+          - org.vrcau.vpm.systems.flight-menu.integration.sacc-flight-dfunc
+          - org.vrcau.vpm.systems.flight-menu.integration.urc-redux
 
 env:
   path_to_repo: ${{ github.workspace }}/repo/
