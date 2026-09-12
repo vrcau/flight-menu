@@ -445,10 +445,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5387125602447414344, guid: 2fe809fda9c27764aaebdc57f44fa19c, type: 3}
+      propertyPath: eventTarget
+      value: 
+      objectReference: {fileID: 1296509007451732771}
     - target: {fileID: 6124323640693104293, guid: 2fe809fda9c27764aaebdc57f44fa19c, type: 3}
       propertyPath: transceiver
       value: 
       objectReference: {fileID: 1296509007451732771}
+    - target: {fileID: 8441184608787882811, guid: 2fe809fda9c27764aaebdc57f44fa19c, type: 3}
+      propertyPath: eventTarget
+      value: 
+      objectReference: {fileID: 1296509007451732771}
+    - target: {fileID: 8441184608787882811, guid: 2fe809fda9c27764aaebdc57f44fa19c, type: 3}
+      propertyPath: updateIsActivatedFromEventTarget
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9097231457869064125, guid: 2fe809fda9c27764aaebdc57f44fa19c, type: 3}
       propertyPath: m_Name
       value: MenuGroupVHF
