@@ -11,8 +11,7 @@
     "menu"
   ],
   "license": "MIT",
-  "vpmDependencies": {
-  },
+  "vpmDependencies": {},
   "author": {
     "name": "VRChat Aerospace University",
     "url": "https://vrcau.org/"

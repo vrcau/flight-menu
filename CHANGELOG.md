@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-09-12
+
 ### Added
 
 - Fully configurable menu.
@@ -16,4 +18,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Button
   - Slider
 
-[unreleased]: https://github.com/vrcau/flight-menu
+[unreleased]: https://github.com/vrcau/flight-menu/compare/core-v0.1.0...HEAD
+[0.1.0]: https://github.com/vrcau/flight-menu/releases/tag/core-v0.1.0
