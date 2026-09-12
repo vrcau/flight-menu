@@ -1,0 +1,22 @@
+{
+  "name": "org.vrcau.vpm.systems.flight-menu",
+  "displayName": "Flight Menu",
+  "version": "0.1.0",
+  "description": "Action menu like and flexible menu system for VRChat vehicles.",
+  "hideInEditor": false,
+  "keywords": [
+    "aircraft",
+    "vrchat",
+    "udon",
+    "menu"
+  ],
+  "license": "MIT",
+  "vpmDependencies": {
+  },
+  "author": {
+    "name": "VRChat Aerospace University",
+    "url": "https://vrcau.org/"
+  },
+  "unity": "2022.3",
+  "unityRelease": "22f1"
+}

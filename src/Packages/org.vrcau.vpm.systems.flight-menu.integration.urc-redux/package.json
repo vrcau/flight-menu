@@ -1,0 +1,26 @@
+{
+  "name": "org.vrcau.vpm.systems.flight-menu.integration.urc-redux",
+  "displayName": "Flight Menu - Udon Radio Communications Redux Integration",
+  "version": "0.1.0",
+  "description": "Udon Radio Communications Redux integration for Flight menu system",
+  "hideInEditor": false,
+  "keywords": [
+    "aircraft",
+    "vrchat",
+    "udon",
+    "menu",
+    "radio",
+    "communication"
+  ],
+  "license": "MIT",
+  "vpmDependencies": {
+    "jp.virtualaviation.urc-redux-sf": "^0.1.0",
+    "org.vrcau.vpm.systems.flight-menu": "^0.1.0"
+  },
+  "author": {
+    "name": "VRChat Aerospace University",
+    "url": "https://vrcau.org/"
+  },
+  "unity": "2022.3",
+  "unityRelease": "22f1"
+}
