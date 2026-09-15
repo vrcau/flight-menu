@@ -17,7 +17,10 @@ namespace VAU.FlightMenuSystem.Runtime
 
         public override void PostLateUpdate()
         {
-            transform.LookAt(_screenCamera.Position + _screenCamera.Forward, _screenCamera.Up);
+            transform.rotation = Quaternion.LookRotation(
+                _screenCamera.Forward,
+                _screenCamera.Up
+            );
         }
     }
 }
