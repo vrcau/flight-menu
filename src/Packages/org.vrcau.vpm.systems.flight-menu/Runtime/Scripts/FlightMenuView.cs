@@ -73,7 +73,8 @@ namespace VAU.FlightMenuSystem.Runtime
             for (var index = 0; index < _flightMenuActivated.Length; index++)
             {
                 var menuItem = _flightMenuActivated[index];
-                if (menuItem.updateIsActivatedFromEventTarget)
+                var isEventTargetExist = menuItem.eventTarget != null;
+                if (isEventTargetExist && menuItem.updateIsActivatedFromEventTarget)
                 {
                     var isActivated = (bool)menuItem.eventTarget.GetProgramVariable(menuItem.isActivatedVariableName);
                     if (menuItem.invertIsActivatedVariable) isActivated = !isActivated;
@@ -85,7 +86,7 @@ namespace VAU.FlightMenuSystem.Runtime
                 }
 
                 var titleText = _itemTitleGenerated[index];
-                if (menuItem.updateTitleFromEventTarget)
+                if (isEventTargetExist && menuItem.updateTitleFromEventTarget)
                 {
                     titleText.text = 
                         string.Format(
@@ -493,7 +494,7 @@ namespace VAU.FlightMenuSystem.Runtime
 
         private bool IsMenuItemEnabled(FlightMenuItemBase menuItem)
         {
-            var itemIsDisabled = menuItem.updateIsEnabledFromEventTarget ?
+            var itemIsDisabled = menuItem.updateIsEnabledFromEventTarget && menuItem.eventTarget ?
                 (bool)menuItem.eventTarget.GetProgramVariable(menuItem.isDisabledVariableName) :
                 menuItem.isDisabled;
 
