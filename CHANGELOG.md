@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Remove event target will no logger set update from event target to false.
+
+### Added
+
+- New `FlightMenuViewSetup` component to change and preview menu group for all child non-popup menu `MenuView`.
+
+### Fixed
+
+- Flight menu item with update from event target enabled but event target missing will no longer crash MenuView.
+
 ## [0.1.0] - 2026-09-12
 
 ### Added
