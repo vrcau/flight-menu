@@ -203,8 +203,6 @@ namespace VAU.FlightMenuSystem.Editor.InspectorEditor
             }
             else
             {
-                _updateIsActivatedFromEventTargetProperty.boolValue = false;
-                _updateTitleFromEventTargetProperty.boolValue = false;
                 _itemSerializedObject.ApplyModifiedProperties();
             }
 
