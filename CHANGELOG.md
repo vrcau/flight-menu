@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-09-15
+
 ### Changed
 
 - Remove event target will no logger set update from event target to false.
@@ -30,5 +32,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Button
   - Slider
 
-[unreleased]: https://github.com/vrcau/flight-menu/compare/core-v0.1.0...HEAD
+[unreleased]: https://github.com/vrcau/flight-menu/compare/core-v0.1.1...HEAD
+[0.1.1]: https://github.com/vrcau/flight-menu/compare/core-v0.1.0...core-v0.1.1
 [0.1.0]: https://github.com/vrcau/flight-menu/releases/tag/core-v0.1.0
