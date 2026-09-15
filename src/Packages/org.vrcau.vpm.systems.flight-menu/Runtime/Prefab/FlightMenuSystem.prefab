@@ -476,6 +476,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5641358957159738262}
+  - component: {fileID: 6214106668427693743}
   m_Layer: 0
   m_Name: FlightMenuSystem
   m_TagString: Untagged
@@ -500,6 +501,18 @@ Transform:
   - {fileID: 4357213627947615677}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6214106668427693743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8102745919136328583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3dd1526b2dde57f418ad618894ceb17e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8542656651500736627
 GameObject:
   m_ObjectHideFlags: 0
@@ -834,6 +847,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9012922095316169093, guid: d601b2cb8d3c0304d9ddc6280e9107f8, type: 3}
+      propertyPath: remark
+      value: Right Hand
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1068,6 +1085,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9012922095316169093, guid: d601b2cb8d3c0304d9ddc6280e9107f8, type: 3}
+      propertyPath: remark
+      value: Desktop Overlay
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1245,6 +1266,10 @@ PrefabInstance:
     - target: {fileID: 8648277265576495114, guid: d601b2cb8d3c0304d9ddc6280e9107f8, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9012922095316169093, guid: d601b2cb8d3c0304d9ddc6280e9107f8, type: 3}
+      propertyPath: remark
+      value: Left Hand
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

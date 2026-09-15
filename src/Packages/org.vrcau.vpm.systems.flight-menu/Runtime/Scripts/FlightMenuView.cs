@@ -13,6 +13,7 @@ namespace VAU.FlightMenuSystem.Runtime
     public sealed class FlightMenuView : UdonSharpBehaviour
     {
         public FlightMenuGroup rootMenuGroup;
+        public string remark;
 
         [Header("Core")] 
         public FlightMenuController menuController;
