@@ -27,6 +27,10 @@ namespace VAU.FlightMenuSystem.Editor.InspectorEditor
         // Event Properties
         private readonly SerializedProperty _eventTargetProperty;
         private readonly SerializedProperty _triggerEventNameProperty;
+        private readonly SerializedProperty _holdStartEventNameProperty;
+        private readonly SerializedProperty _holdEndEventNameProperty;
+        private readonly SerializedProperty _updateHoldStateToEventTargetProperty;
+        private readonly SerializedProperty _holdStateVariableNameProperty;
 
         private readonly SerializedProperty _updateIsActivatedFromEventTargetProperty;
         private readonly SerializedProperty _isActivatedVariableNameProperty;
@@ -68,6 +72,12 @@ namespace VAU.FlightMenuSystem.Editor.InspectorEditor
 
             _eventTargetProperty = _itemSerializedObject.FindProperty(nameof(FlightMenuItemBase.eventTarget));
             _triggerEventNameProperty = _itemSerializedObject.FindProperty(nameof(FlightMenuItemBase.triggerEventName));
+            _holdStartEventNameProperty = _itemSerializedObject.FindProperty(nameof(FlightMenuItemBase.holdStartEventName));
+            _holdEndEventNameProperty = _itemSerializedObject.FindProperty(nameof(FlightMenuItemBase.holdEndEventName));
+            _updateHoldStateToEventTargetProperty = _itemSerializedObject
+                .FindProperty(nameof(FlightMenuItemBase.updateHoldStateToEventTarget));
+            _holdStateVariableNameProperty = _itemSerializedObject
+                .FindProperty(nameof(FlightMenuItemBase.holdStateVariableName));
             _isActivatedVariableNameProperty = _itemSerializedObject
                 .FindProperty(nameof(FlightMenuItemBase.isActivatedVariableName));
             _invertIsActivatedVariableProperty = _itemSerializedObject
@@ -169,6 +179,17 @@ namespace VAU.FlightMenuSystem.Editor.InspectorEditor
             if (isEventTargetExist)
             {
                 EditorGUILayout.PropertyField(_triggerEventNameProperty);
+                EditorGUILayout.PropertyField(_holdStartEventNameProperty);
+                EditorGUILayout.PropertyField(_holdEndEventNameProperty);
+
+                GUILayout.BeginVertical(EditorStyles.helpBox);
+                EditorGUILayout.PropertyField(_updateHoldStateToEventTargetProperty);
+                if (_itemBase.updateHoldStateToEventTarget)
+                {
+                    EditorGUILayout.PropertyField(_holdStateVariableNameProperty);
+                }
+
+                GUILayout.EndVertical();
 
                 GUILayout.BeginVertical(EditorStyles.helpBox);
                 EditorGUILayout.PropertyField(_updateIsActivatedFromEventTargetProperty);

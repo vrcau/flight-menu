@@ -46,11 +46,17 @@ namespace VAU.FlightMenuSystem.Runtime
         private bool _userInVr;
         private float _sqrMagnitudeInLastFrame;
         private int _lastHoverItemIndex = -1;
+        private int _lastHoldItemIndex = -1;
 
         private void Start()
         {
             _userInVr = Networking.LocalPlayer.IsUserInVR();
             RequestMenuUpdate(itemNumber);
+        }
+
+        private void OnDisable()
+        {
+            UpdateItemHoldState(-1, false);
         }
 
         public void RequestMenuUpdate(int menuLength)
@@ -76,6 +82,7 @@ namespace VAU.FlightMenuSystem.Runtime
 
             if (!userInVr && !Input.GetKey(desktopModeHoldToMoveMenuCursorKey))
             {
+                UpdateItemHoldState(-1, false);
                 cursorTransform.localPosition = new Vector3(0, 0, cursorTransform.localPosition.z);
                 return;
             }
@@ -129,6 +136,7 @@ namespace VAU.FlightMenuSystem.Runtime
 
             if (cursorSqrMagnitude < hoverThreshold)
             {
+                UpdateItemHoldState(-1, false);
                 _sqrMagnitudeInLastFrame = cursorSqrMagnitude;
                 _lastHoverItemIndex = -1;
 
@@ -149,6 +157,7 @@ namespace VAU.FlightMenuSystem.Runtime
             {
                 viewCore._OnItemHover(itemIndex);
                 _lastHoverItemIndex = itemIndex;
+                UpdateItemHoldState(itemIndex, IsItemHolding(userInVr, cursorSqrMagnitude));
 
                 if (IsTriggerPressed())
                 {
@@ -159,6 +168,7 @@ namespace VAU.FlightMenuSystem.Runtime
             else
             {
                 _lastHoverItemIndex = -1;
+                UpdateItemHoldState(-1, false);
             }
 
             _sqrMagnitudeInLastFrame = cursorSqrMagnitude;
@@ -174,6 +184,26 @@ namespace VAU.FlightMenuSystem.Runtime
         private bool IsTriggerPressed()
         {
             return Input.GetMouseButtonDown(0) || Input.GetAxisRaw(triggerAxis) > triggerAxisThreshold;
+        }
+
+        private bool IsItemHolding(bool userInVr, float cursorSqrMagnitude)
+        {
+            return userInVr ? cursorSqrMagnitude > activeThreshold : Input.GetMouseButton(0);
+        }
+
+        private void UpdateItemHoldState(int itemIndex, bool isHolding)
+        {
+            if (_lastHoldItemIndex != -1 && (!isHolding || _lastHoldItemIndex != itemIndex))
+            {
+                viewCore._OnItemHoldEnd(_lastHoldItemIndex);
+                _lastHoldItemIndex = -1;
+            }
+
+            if (isHolding && itemIndex != -1 && _lastHoldItemIndex != itemIndex)
+            {
+                viewCore._OnItemHoldStart(itemIndex);
+                _lastHoldItemIndex = itemIndex;
+            }
         }
     }
 }
