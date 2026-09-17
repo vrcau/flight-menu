@@ -1,7 +1,7 @@
 {
   "name": "org.vrcau.vpm.systems.flight-menu",
   "displayName": "Flight Menu",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Action menu like and flexible menu system for VRChat vehicles.",
   "hideInEditor": false,
   "keywords": [

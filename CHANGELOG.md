@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.2] - 2026-09-17
+
 ### Added
 
 - Keep push/pull thumbtack or hold left mouse button to keep trigger menu item. [#8](https://github.com/vrcau/flight-menu/pull/8)
@@ -38,6 +40,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Button
   - Slider
 
-[unreleased]: https://github.com/vrcau/flight-menu/compare/core-v0.1.1...HEAD
+[unreleased]: https://github.com/vrcau/flight-menu/compare/core-v0.1.2...HEAD
+[0.1.2]: https://github.com/vrcau/flight-menu/compare/core-v0.1.1...core-v0.1.2
 [0.1.1]: https://github.com/vrcau/flight-menu/compare/core-v0.1.0...core-v0.1.1
 [0.1.0]: https://github.com/vrcau/flight-menu/releases/tag/core-v0.1.0
