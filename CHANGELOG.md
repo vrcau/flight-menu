@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Keep push/pull thumbtack or hold left mouse button to keep trigger menu item. [#8](https://github.com/vrcau/flight-menu/pull/8)
+  - Set given variable to true or false when use hold menu item.
+  - Or send custom on hold start or end event
+
 ## [0.1.1] - 2026-09-15
 
 ### Changed

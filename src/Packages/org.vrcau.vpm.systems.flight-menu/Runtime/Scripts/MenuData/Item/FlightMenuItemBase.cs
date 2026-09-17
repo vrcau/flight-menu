@@ -18,6 +18,10 @@ namespace VAU.FlightMenuSystem.Runtime.MenuData.Item
 
         public UdonSharpBehaviour eventTarget;
         public string triggerEventName;
+        public string holdStartEventName;
+        public string holdEndEventName;
+        public bool updateHoldStateToEventTarget;
+        public string holdStateVariableName;
 
         public bool updateIsActivatedFromEventTarget;
         public string isActivatedVariableName;
@@ -44,6 +48,36 @@ namespace VAU.FlightMenuSystem.Runtime.MenuData.Item
             }
 
             return FlightMenuTriggerResult.Noop;
+        }
+
+        public virtual void OnHoldStart()
+        {
+            if (!eventTarget) return;
+
+            if (updateHoldStateToEventTarget && !string.IsNullOrWhiteSpace(holdStateVariableName))
+            {
+                eventTarget.SetProgramVariable(holdStateVariableName, true);
+            }
+
+            if (!string.IsNullOrWhiteSpace(holdStartEventName))
+            {
+                eventTarget.SendCustomEvent(holdStartEventName);
+            }
+        }
+
+        public virtual void OnHoldEnd()
+        {
+            if (!eventTarget) return;
+
+            if (updateHoldStateToEventTarget && !string.IsNullOrWhiteSpace(holdStateVariableName))
+            {
+                eventTarget.SetProgramVariable(holdStateVariableName, false);
+            }
+
+            if (!string.IsNullOrWhiteSpace(holdEndEventName))
+            {
+                eventTarget.SendCustomEvent(holdEndEventName);
+            }
         }
 
         [CanBeNull]

@@ -392,6 +392,34 @@ namespace VAU.FlightMenuSystem.Runtime
             }
         }
 
+        public void _OnItemHoldStart(int itemIndex)
+        {
+            if (itemIndex < 0 || itemIndex >= _itemNumber)
+            {
+                Debug.LogWarning(
+                    "_OnItemHoldStart: itemIndex is out of range, input: " + itemIndex + ", max: " + _itemNumber);
+                return;
+            }
+
+            var menuItem = _flightMenuActivated[itemIndex];
+            if (!IsMenuItemEnabled(menuItem)) return;
+
+            menuItem.OnHoldStart();
+        }
+
+        public void _OnItemHoldEnd(int itemIndex)
+        {
+            if (itemIndex < 0 || itemIndex >= _itemNumber)
+            {
+                Debug.LogWarning(
+                    "_OnItemHoldEnd: itemIndex is out of range, input: " + itemIndex + ", max: " + _itemNumber);
+                return;
+            }
+
+            var menuItem = _flightMenuActivated[itemIndex];
+            menuItem.OnHoldEnd();
+        }
+
         private void SetItemActivatedIndicator(int index, bool activated)
         {
             var item = _itemGenerated[_itemNumber  * 2 + index];
