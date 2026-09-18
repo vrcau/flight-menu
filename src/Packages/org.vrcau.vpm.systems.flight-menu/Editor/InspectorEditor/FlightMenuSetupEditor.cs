@@ -43,6 +43,7 @@ namespace VAU.FlightMenuSystem.Editor.InspectorEditor
         private class FlightMenuSetupGui
         {
             private readonly FlightMenuView _view;
+            private SerializedObject _serializedObject;
 
             private readonly SerializedProperty _remarkProperty;
             private readonly SerializedProperty _menuGroupProperty;
@@ -53,10 +54,10 @@ namespace VAU.FlightMenuSystem.Editor.InspectorEditor
             public FlightMenuSetupGui(FlightMenuView view)
             {
                 _view = view;
-                var o = new SerializedObject(view);
+                _serializedObject = new SerializedObject(view);
 
-                _remarkProperty = o.FindProperty(nameof(FlightMenuView.remark));
-                _menuGroupProperty = o.FindProperty(nameof(FlightMenuView.rootMenuGroup));
+                _remarkProperty = _serializedObject.FindProperty(nameof(FlightMenuView.remark));
+                _menuGroupProperty = _serializedObject.FindProperty(nameof(FlightMenuView.rootMenuGroup));
             }
 
             public void OnGui()
@@ -72,8 +73,13 @@ namespace VAU.FlightMenuSystem.Editor.InspectorEditor
 
                 GUILayout.EndHorizontal();
                 EditorGUI.EndDisabledGroup();
-
+                
+                EditorGUI.BeginChangeCheck();
                 EditorGUILayout.PropertyField(_menuGroupProperty);
+                if (EditorGUI.EndChangeCheck())
+                {
+                    _serializedObject.ApplyModifiedProperties();
+                }
 
                 if (_view.rootMenuGroup)
                 {
