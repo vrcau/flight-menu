@@ -124,6 +124,18 @@ namespace VAU.FlightMenuSystem.Editor.InspectorEditor
                     EditorUtility.SetDirty(_flightMenuGroup);
                 });
 
+                menu.AddItem(new GUIContent("Reference"), false, () =>
+                {
+                    var newGameObject = new GameObject("[Reference]");
+                    newGameObject.transform.SetParent(_flightMenuGroup.transform);
+
+                    newGameObject.AddUdonSharpComponent<FlightMenuReferenceItem>();
+
+                    // The referenced menu item is unknown yet, so keep the menu items untouched
+                    // until the target is assigned and the menu group is scanned.
+                    Selection.activeGameObject = newGameObject;
+                });
+
                 menu.ShowAsContext();
             }
 

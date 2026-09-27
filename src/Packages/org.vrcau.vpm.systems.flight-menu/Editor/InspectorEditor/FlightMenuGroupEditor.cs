@@ -45,6 +45,12 @@ namespace VAU.FlightMenuSystem.Editor.InspectorEditor
                 var item = child.GetComponent<FlightMenuItemBase>();
                 if (!item) continue;
 
+                if (item is FlightMenuReferenceItem referenceItem)
+                {
+                    AddReferenceTarget(newItemList, referenceItem, new HashSet<FlightMenuItemBase>());
+                    continue;
+                }
+
                 if (item is FlightMenuSubMenuItem subMenuItem)
                 {
                     var menuGroupInSameObject = subMenuItem.GetComponent<FlightMenuGroup>();
@@ -56,10 +62,48 @@ namespace VAU.FlightMenuSystem.Editor.InspectorEditor
                     }
                 }
 
-                newItemList.Add(item);
+                AddIfMissing(newItemList, item);
             }
 
             return newItemList.ToArray();
+        }
+
+        private static void AddReferenceTarget(
+            List<FlightMenuItemBase> itemList,
+            FlightMenuReferenceItem referenceItem,
+            HashSet<FlightMenuItemBase> visiting)
+        {
+            var target = referenceItem.targetMenuItem;
+            if (!target)
+            {
+                Debug.LogWarning(
+                    $"[FlightMenu] Reference menu item '{referenceItem.gameObject.name}' has no target menu item, it is skipped during scan.",
+                    referenceItem);
+                return;
+            }
+
+            if (!visiting.Add(target))
+            {
+                Debug.LogWarning(
+                    $"[FlightMenu] Reference loop detected at '{referenceItem.gameObject.name}' -> '{target.gameObject.name}', it is skipped during scan.",
+                    referenceItem);
+                return;
+            }
+
+            if (target is FlightMenuReferenceItem nestedReferenceItem)
+            {
+                AddReferenceTarget(itemList, nestedReferenceItem, visiting);
+                return;
+            }
+
+            AddIfMissing(itemList, target);
+        }
+
+        private static void AddIfMissing(List<FlightMenuItemBase> itemList, FlightMenuItemBase item)
+        {
+            if (itemList.Contains(item)) return;
+
+            itemList.Add(item);
         }
     }
 }
