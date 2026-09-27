@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.3] - 2026-09-27
+
 ### Added
 
 - Menu item can continuously send a custom event to its event target every frame while the item is being held.
@@ -48,7 +50,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Button
   - Slider
 
-[unreleased]: https://github.com/vrcau/flight-menu/compare/core-v0.1.2...HEAD
+[unreleased]: https://github.com/vrcau/flight-menu/compare/core-v0.1.3...HEAD
+[0.1.3]: https://github.com/vrcau/flight-menu/compare/core-v0.1.2...core-v0.1.3
 [0.1.2]: https://github.com/vrcau/flight-menu/compare/core-v0.1.1...core-v0.1.2
 [0.1.1]: https://github.com/vrcau/flight-menu/compare/core-v0.1.0...core-v0.1.1
 [0.1.0]: https://github.com/vrcau/flight-menu/releases/tag/core-v0.1.0
