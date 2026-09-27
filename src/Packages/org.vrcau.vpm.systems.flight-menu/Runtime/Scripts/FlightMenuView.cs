@@ -61,6 +61,7 @@ namespace VAU.FlightMenuSystem.Runtime
         private GameObject[] _itemGenerated = new GameObject[0];
         private TextMeshProUGUI[] _itemTitleGenerated = new TextMeshProUGUI[0];
         private FlightMenuItemBase[] _flightMenuActivated = new FlightMenuItemBase[0];
+        private int _holdItemIndex = -1;
 
         private void Start()
         {
@@ -70,6 +71,12 @@ namespace VAU.FlightMenuSystem.Runtime
         private void Update()
         {
             if (!menuActivated) return;
+
+            // Drive continuous hold event of the holding item
+            if (_holdItemIndex >= 0 && _holdItemIndex < _flightMenuActivated.Length)
+            {
+                _flightMenuActivated[_holdItemIndex].OnHoldUpdate();
+            }
 
             for (var index = 0; index < _flightMenuActivated.Length; index++)
             {
@@ -108,6 +115,7 @@ namespace VAU.FlightMenuSystem.Runtime
         private void NavigateToMenu(FlightMenuGroup newMenuGroup, bool clearHistory = false)
         {
             menuActivated = false;
+            _holdItemIndex = -1;
             if (clearHistory)
             {
                 menuGroupActivated = null;
@@ -161,6 +169,7 @@ namespace VAU.FlightMenuSystem.Runtime
         {
             if (menuGroupHistory.Length == 0) return;
             menuActivated = false;
+            _holdItemIndex = -1;
 
             var menuToGoBack = PopHistory();
             var menuToGoBackItems = menuToGoBack.menuItems;
@@ -405,6 +414,7 @@ namespace VAU.FlightMenuSystem.Runtime
             if (!IsMenuItemEnabled(menuItem)) return;
 
             menuItem.OnHoldStart();
+            _holdItemIndex = itemIndex;
         }
 
         public void _OnItemHoldEnd(int itemIndex)
@@ -418,6 +428,11 @@ namespace VAU.FlightMenuSystem.Runtime
 
             var menuItem = _flightMenuActivated[itemIndex];
             menuItem.OnHoldEnd();
+
+            if (_holdItemIndex == itemIndex)
+            {
+                _holdItemIndex = -1;
+            }
         }
 
         private void SetItemActivatedIndicator(int index, bool activated)

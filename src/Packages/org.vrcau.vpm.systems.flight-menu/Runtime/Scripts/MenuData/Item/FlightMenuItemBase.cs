@@ -20,6 +20,8 @@ namespace VAU.FlightMenuSystem.Runtime.MenuData.Item
         public string triggerEventName;
         public string holdStartEventName;
         public string holdEndEventName;
+        public bool sendHoldEventContinuously;
+        public string holdContinuousEventName;
         public bool updateHoldStateToEventTarget;
         public string holdStateVariableName;
 
@@ -77,6 +79,18 @@ namespace VAU.FlightMenuSystem.Runtime.MenuData.Item
             if (!string.IsNullOrWhiteSpace(holdEndEventName))
             {
                 eventTarget.SendCustomEvent(holdEndEventName);
+            }
+        }
+
+        // Called by FlightMenuView every frame while this item is being held
+        public virtual void OnHoldUpdate()
+        {
+            if (!sendHoldEventContinuously) return;
+            if (!eventTarget) return;
+
+            if (!string.IsNullOrWhiteSpace(holdContinuousEventName))
+            {
+                eventTarget.SendCustomEvent(holdContinuousEventName);
             }
         }
 

@@ -29,6 +29,8 @@ namespace VAU.FlightMenuSystem.Editor.InspectorEditor
         private readonly SerializedProperty _triggerEventNameProperty;
         private readonly SerializedProperty _holdStartEventNameProperty;
         private readonly SerializedProperty _holdEndEventNameProperty;
+        private readonly SerializedProperty _sendHoldEventContinuouslyProperty;
+        private readonly SerializedProperty _holdContinuousEventNameProperty;
         private readonly SerializedProperty _updateHoldStateToEventTargetProperty;
         private readonly SerializedProperty _holdStateVariableNameProperty;
 
@@ -74,6 +76,10 @@ namespace VAU.FlightMenuSystem.Editor.InspectorEditor
             _triggerEventNameProperty = _itemSerializedObject.FindProperty(nameof(FlightMenuItemBase.triggerEventName));
             _holdStartEventNameProperty = _itemSerializedObject.FindProperty(nameof(FlightMenuItemBase.holdStartEventName));
             _holdEndEventNameProperty = _itemSerializedObject.FindProperty(nameof(FlightMenuItemBase.holdEndEventName));
+            _sendHoldEventContinuouslyProperty = _itemSerializedObject
+                .FindProperty(nameof(FlightMenuItemBase.sendHoldEventContinuously));
+            _holdContinuousEventNameProperty = _itemSerializedObject
+                .FindProperty(nameof(FlightMenuItemBase.holdContinuousEventName));
             _updateHoldStateToEventTargetProperty = _itemSerializedObject
                 .FindProperty(nameof(FlightMenuItemBase.updateHoldStateToEventTarget));
             _holdStateVariableNameProperty = _itemSerializedObject
@@ -181,6 +187,18 @@ namespace VAU.FlightMenuSystem.Editor.InspectorEditor
                 EditorGUILayout.PropertyField(_triggerEventNameProperty);
                 EditorGUILayout.PropertyField(_holdStartEventNameProperty);
                 EditorGUILayout.PropertyField(_holdEndEventNameProperty);
+
+                GUILayout.BeginVertical(EditorStyles.helpBox);
+                EditorGUILayout.PropertyField(_sendHoldEventContinuouslyProperty);
+                if (_itemBase.sendHoldEventContinuously)
+                {
+                    EditorGUILayout.PropertyField(_holdContinuousEventNameProperty);
+                    EditorGUILayout.HelpBox(
+                        "The event will be sent to the event target every frame while the item is being held.",
+                        MessageType.Info);
+                }
+
+                GUILayout.EndVertical();
 
                 GUILayout.BeginVertical(EditorStyles.helpBox);
                 EditorGUILayout.PropertyField(_updateHoldStateToEventTargetProperty);

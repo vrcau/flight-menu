@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Menu item can continuously send a custom event to its event target every frame while the item is being held.
+
 ### Fixed
 
 - Unable to modify view's menu group via flight menu setup editor
