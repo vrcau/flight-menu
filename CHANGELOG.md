@@ -9,7 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- New `FlightMenuReferenceItem` menu item type to point to another menu item. When a menu group is scanned, the referenced menu item is added to the menu instead of the reference item itself, allowing a menu item to be reused in multiple menu groups.
+- New editor only `FlightMenuReferenceItem` component to reuse a menu item in multiple menu groups.
+  - It will be remove from the built world.
 
 ## [0.1.3] - 2026-09-27
 

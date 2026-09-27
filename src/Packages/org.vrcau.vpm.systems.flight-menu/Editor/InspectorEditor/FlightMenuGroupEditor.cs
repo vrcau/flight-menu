@@ -2,6 +2,7 @@
 using UdonSharpEditor;
 using UnityEditor;
 using UnityEngine;
+using VAU.FlightMenuSystem.Runtime.EditorOnly;
 using VAU.FlightMenuSystem.Runtime.MenuData;
 using VAU.FlightMenuSystem.Runtime.MenuData.Item;
 
@@ -30,11 +31,18 @@ namespace VAU.FlightMenuSystem.Editor.InspectorEditor
 
             if (GUILayout.Button("Scan child menu item update"))
             {
-                _targetMenuGroup.menuItems = ScanChildMenuItem(_targetMenuGroup);
-                EditorUtility.SetDirty(_targetMenuGroup);
+                RefreshMenuItems(_targetMenuGroup);
             }
 
             _previewGUI?.OnGui();
+        }
+
+        internal static void RefreshMenuItems(FlightMenuGroup targetMenuGroup)
+        {
+            if (!targetMenuGroup) return;
+
+            targetMenuGroup.menuItems = ScanChildMenuItem(targetMenuGroup);
+            EditorUtility.SetDirty(targetMenuGroup);
         }
 
         internal static FlightMenuItemBase[] ScanChildMenuItem(FlightMenuGroup targetMenuGroup)
@@ -42,14 +50,15 @@ namespace VAU.FlightMenuSystem.Editor.InspectorEditor
             var newItemList = new List<FlightMenuItemBase>();
             foreach (Transform child in targetMenuGroup.transform)
             {
-                var item = child.GetComponent<FlightMenuItemBase>();
-                if (!item) continue;
-
-                if (item is FlightMenuReferenceItem referenceItem)
+                var referenceItem = child.GetComponent<FlightMenuReferenceItem>();
+                if (referenceItem)
                 {
-                    AddReferenceTarget(newItemList, referenceItem, new HashSet<FlightMenuItemBase>());
+                    AddReferenceTarget(newItemList, referenceItem);
                     continue;
                 }
+
+                var item = child.GetComponent<FlightMenuItemBase>();
+                if (!item) continue;
 
                 if (item is FlightMenuSubMenuItem subMenuItem)
                 {
@@ -70,8 +79,7 @@ namespace VAU.FlightMenuSystem.Editor.InspectorEditor
 
         private static void AddReferenceTarget(
             List<FlightMenuItemBase> itemList,
-            FlightMenuReferenceItem referenceItem,
-            HashSet<FlightMenuItemBase> visiting)
+            FlightMenuReferenceItem referenceItem)
         {
             var target = referenceItem.targetMenuItem;
             if (!target)
@@ -79,20 +87,6 @@ namespace VAU.FlightMenuSystem.Editor.InspectorEditor
                 Debug.LogWarning(
                     $"[FlightMenu] Reference menu item '{referenceItem.gameObject.name}' has no target menu item, it is skipped during scan.",
                     referenceItem);
-                return;
-            }
-
-            if (!visiting.Add(target))
-            {
-                Debug.LogWarning(
-                    $"[FlightMenu] Reference loop detected at '{referenceItem.gameObject.name}' -> '{target.gameObject.name}', it is skipped during scan.",
-                    referenceItem);
-                return;
-            }
-
-            if (target is FlightMenuReferenceItem nestedReferenceItem)
-            {
-                AddReferenceTarget(itemList, nestedReferenceItem, visiting);
                 return;
             }
 

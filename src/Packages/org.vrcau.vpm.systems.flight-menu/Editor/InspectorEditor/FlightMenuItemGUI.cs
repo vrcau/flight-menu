@@ -1,4 +1,5 @@
-﻿using JetBrains.Annotations;
+﻿using System;
+using JetBrains.Annotations;
 using UdonSharpEditor;
 using UnityEditor;
 using UnityEngine;
@@ -50,13 +51,19 @@ namespace VAU.FlightMenuSystem.Editor.InspectorEditor
         private readonly SerializedProperty _isPopupMenuProperty;
         private readonly SerializedProperty _subMenuProperty;
 
-        // Reference Item Properties
-        private readonly SerializedProperty _referenceTargetMenuItemProperty;
-
         private bool _expandSubMenuPreview;
         private FlightMenuPreviewGUI _subMenuPreviewGui;
         
         [CanBeNull] private FlightMenuSliderItemExtendGUI _sliderItemExtendGui;
+
+        // Extra content drawn at the bottom of this item's box, inside its own frame.
+        // Used by the menu group preview to attach reference menu items to the item they point to.
+        [CanBeNull] private Action _footerGui;
+
+        public void SetFooterGui([CanBeNull] Action footerGui)
+        {
+            _footerGui = footerGui;
+        }
 
         public FlightMenuItemGUI(FlightMenuItemBase itemBase)
         {
@@ -112,12 +119,6 @@ namespace VAU.FlightMenuSystem.Editor.InspectorEditor
             {
                 _sliderItemExtendGui = new FlightMenuSliderItemExtendGUI(sliderItem);
             }
-
-            if (_itemBase is FlightMenuReferenceItem)
-            {
-                _referenceTargetMenuItemProperty =
-                    _itemSerializedObject.FindProperty(nameof(FlightMenuReferenceItem.targetMenuItem));
-            }
         }
 
         public void OnGui()
@@ -127,14 +128,6 @@ namespace VAU.FlightMenuSystem.Editor.InspectorEditor
             EditorGUI.BeginDisabledGroup(true);
             EditorGUILayout.ObjectField(_itemBase, typeof(FlightMenuItemBase), false);
             EditorGUI.EndDisabledGroup();
-
-            if (_itemBase is FlightMenuReferenceItem referenceItem)
-            {
-                DrawReferenceItemGUI(referenceItem);
-
-                GUILayout.EndVertical();
-                return;
-            }
 
             // [Icon] [ title ] [X]
             // [    ] [ isAct ] [ ]
@@ -277,27 +270,9 @@ namespace VAU.FlightMenuSystem.Editor.InspectorEditor
             // SubMenu menu preview
             DrawSubMenuPreviewIfNecessary();
 
+            _footerGui?.Invoke();
+
             GUILayout.EndVertical();
-        }
-
-        private void DrawReferenceItemGUI(FlightMenuReferenceItem referenceItem)
-        {
-            _itemSerializedObject.Update();
-
-            EditorGUILayout.HelpBox(
-                "This item is a reference. When the parent menu group is scanned, the target menu item is added to the menu instead of this item. Other menu item fields are ignored.",
-                MessageType.Info);
-
-            EditorGUILayout.PropertyField(_referenceTargetMenuItemProperty);
-
-            if (!referenceItem.targetMenuItem)
-            {
-                EditorGUILayout.HelpBox(
-                    "No target menu item assigned, this item is skipped during scan.",
-                    MessageType.Warning);
-            }
-
-            _itemSerializedObject.ApplyModifiedProperties();
         }
 
         private void DrawSubMenuPreviewIfNecessary()
