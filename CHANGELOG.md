@@ -25,6 +25,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Menu view without root menu group no longer throw an exception on start, it stays inactive until a menu group is assigned to it.
+- `FlightMenuSystem` prefab no longer show missing scripts after installing the package on its own, it referenced `EnabledInPlatformOnly` and `PlayerTrackingDataFollower` of another package.
+  - Those two scripts are now shipped with this package.
 
 ## [0.1.3] - 2026-09-27
 
