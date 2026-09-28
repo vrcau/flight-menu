@@ -1,7 +1,7 @@
 {
   "name": "org.vrcau.vpm.systems.flight-menu.integration.urc-redux",
   "displayName": "Flight Menu - Udon Radio Communications Redux Integration",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Udon Radio Communications Redux integration for Flight menu system",
   "hideInEditor": false,
   "keywords": [
