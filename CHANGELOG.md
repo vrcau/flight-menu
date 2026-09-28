@@ -11,6 +11,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - New editor only `FlightMenuReferenceItem` component to reuse a menu item in multiple menu groups.
   - It will be remove from the built world.
+- New `FlightMenuStationMenuSwitcher` component to replace the menu group of the menu views when the local player enters a station.
+  - It has to be on the same GameObject as the `VRCStation`, otherwise Udon will never receive the station events.
+  - A single component can assign a menu group to the desktop, the left hand and the right hand menu view at once, one component per station.
+- New `FlightMenuView.SetRootMenuGroup` to replace the root menu group of a menu view and navigate to it at runtime.
+
+### Changed
+
+- `FlightMenuSetup` is no longer editor only, it now also holds the desktop, the left hand and the right hand menu view, so that every station menu switcher can share the menu views of one menu system.
+  - It is now a `UdonSharpBehaviour` and moved from `VAU.FlightMenuSystem.Runtime.EditorOnly` to `VAU.FlightMenuSystem.Runtime`.
+  - A `FlightMenuSetup` in a scene gets its Udon backing behaviour when the scene is loaded, a `FlightMenuSetup` inside a prefab has to be re-added or the prefab re-saved once.
+
+### Fixed
+
+- Menu view without root menu group no longer throw an exception on start, it stays inactive until a menu group is assigned to it.
 
 ## [0.1.3] - 2026-09-27
 

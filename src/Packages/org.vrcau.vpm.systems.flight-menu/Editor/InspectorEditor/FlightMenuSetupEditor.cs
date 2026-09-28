@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
+using UdonSharpEditor;
 using UnityEditor;
 using UnityEngine;
 using VAU.FlightMenuSystem.Runtime;
-using VAU.FlightMenuSystem.Runtime.EditorOnly;
 
 namespace VAU.FlightMenuSystem.Editor.InspectorEditor
 {
@@ -14,11 +14,19 @@ namespace VAU.FlightMenuSystem.Editor.InspectorEditor
 
         private Dictionary<FlightMenuView, FlightMenuSetupGui> _views;
 
-        private SerializedProperty _viewMenuGroupProperty;
+        private SerializedObject _setupSerializedObject;
+        private SerializedProperty _desktopMenuViewProperty;
+        private SerializedProperty _vrLeftMenuViewProperty;
+        private SerializedProperty _vrRightMenuViewProperty;
 
         private void OnEnable()
         {
             _setup = (FlightMenuSetup)target;
+
+            _setupSerializedObject = new SerializedObject(_setup);
+            _desktopMenuViewProperty = _setupSerializedObject.FindProperty(nameof(FlightMenuSetup.desktopMenuView));
+            _vrLeftMenuViewProperty = _setupSerializedObject.FindProperty(nameof(FlightMenuSetup.vrLeftMenuView));
+            _vrRightMenuViewProperty = _setupSerializedObject.FindProperty(nameof(FlightMenuSetup.vrRightMenuView));
 
             _views =
                 _setup.GetComponentsInChildren<FlightMenuView>(true)
@@ -28,6 +36,24 @@ namespace VAU.FlightMenuSystem.Editor.InspectorEditor
 
         public override void OnInspectorGUI()
         {
+            if (UdonSharpGUI.DrawDefaultUdonSharpBehaviourHeader(target)) return;
+
+            EditorGUILayout.HelpBox(
+                "Menu views replaced by station menu switcher, one per menu canvas",
+                MessageType.Info
+            );
+
+            EditorGUI.BeginChangeCheck();
+            EditorGUILayout.PropertyField(_desktopMenuViewProperty);
+            EditorGUILayout.PropertyField(_vrLeftMenuViewProperty);
+            EditorGUILayout.PropertyField(_vrRightMenuViewProperty);
+            if (EditorGUI.EndChangeCheck())
+            {
+                _setupSerializedObject.ApplyModifiedProperties();
+            }
+
+            GUILayout.Space(10);
+
             foreach (var (view, gui) in _views)
             {
                 if (!view)

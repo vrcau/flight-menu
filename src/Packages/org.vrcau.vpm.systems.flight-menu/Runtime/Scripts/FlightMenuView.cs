@@ -62,10 +62,39 @@ namespace VAU.FlightMenuSystem.Runtime
         private TextMeshProUGUI[] _itemTitleGenerated = new TextMeshProUGUI[0];
         private FlightMenuItemBase[] _flightMenuActivated = new FlightMenuItemBase[0];
         private int _holdItemIndex = -1;
+        private bool _started;
 
         private void Start()
         {
+            _started = true;
             if (!isPopupMenu) NavigateToMenu(rootMenuGroup);
+        }
+
+        /// <summary>
+        /// Replace the root menu group of this view and, if this view is already started, navigate to it immediately.
+        /// </summary>
+        /// <remarks>
+        /// The menu history is cleared, so the new menu group is treated as a new root menu.
+        /// Called before this view started (or on a popup menu view), the new menu group is only stored and will be
+        /// used when this view navigate to its root menu group.
+        /// </remarks>
+        public void SetRootMenuGroup(FlightMenuGroup newMenuGroup)
+        {
+            if (!newMenuGroup)
+            {
+                Debug.LogWarning("SetRootMenuGroup: newMenuGroup is null, menu group will not be replaced");
+                return;
+            }
+
+            rootMenuGroup = newMenuGroup;
+
+            // Popup menu view only uses its root menu group when it is reset
+            if (isPopupMenu) return;
+
+            // Start() will navigate to the new root menu group
+            if (!_started) return;
+
+            NavigateToMenu(newMenuGroup, true);
         }
 
         private void Update()
@@ -114,6 +143,14 @@ namespace VAU.FlightMenuSystem.Runtime
 
         private void NavigateToMenu(FlightMenuGroup newMenuGroup, bool clearHistory = false)
         {
+            if (!newMenuGroup)
+            {
+                Debug.LogWarning(
+                    "NavigateToMenu: newMenuGroup is null, this menu view will stay inactive " +
+                    "until a menu group is assigned to it");
+                return;
+            }
+
             menuActivated = false;
             _holdItemIndex = -1;
             if (clearHistory)
