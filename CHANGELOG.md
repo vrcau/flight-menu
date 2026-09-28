@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-09-28
+
 ### Added
 
 - New editor only `FlightMenuReferenceItem` component to reuse a menu item in multiple menu groups.
@@ -71,7 +73,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Button
   - Slider
 
-[unreleased]: https://github.com/vrcau/flight-menu/compare/core-v0.1.3...HEAD
+[unreleased]: https://github.com/vrcau/flight-menu/compare/core-v0.2.0...HEAD
+[0.2.0]: https://github.com/vrcau/flight-menu/compare/core-v0.1.3...core-v0.2.0
 [0.1.3]: https://github.com/vrcau/flight-menu/compare/core-v0.1.2...core-v0.1.3
 [0.1.2]: https://github.com/vrcau/flight-menu/compare/core-v0.1.1...core-v0.1.2
 [0.1.1]: https://github.com/vrcau/flight-menu/compare/core-v0.1.0...core-v0.1.1
